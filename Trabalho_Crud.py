@@ -16,6 +16,17 @@ cursor.execute("""
 # Criação das funções CRUD
 
 def cadastrar_produto(nome, quantidade, preco):
+    if nome == "":
+        print("Você deve dar um nome ao produto")
+        return
+
+    if quantidade < 0:
+        print("O produto tem que ter uma quantidade maior que zero")
+        return
+    
+    if preco < 0:
+        print("O produto deve ter um preço positivo")
+        return
     try:
         cursor.execute("""
             INSERT INTO produtos (nome, quantidade, preco)
@@ -69,7 +80,7 @@ while True:
     opcao = input("\nDigite o número da opção desejada: ")
 
     if opcao == '1':
-        nome = input("\nDigite o nome do produto: ")
+        nome = str(input("\nDigite o nome do produto: "))
         quantidade = int(input("Digite a quantidade do produto: "))
         preco = float(input("Digite o preço do produto: "))
         cadastrar_produto(nome, quantidade, preco)
@@ -91,3 +102,21 @@ while True:
     elif opcao == '5':
         print("\nSaindo do sistema...")
         break
+
+
+# Casos de Teste da Função Inserir
+
+# Primeira Tentativa
+#cadastrar_produto("iPhone 15", 6, 6500)
+
+# Cadastrar Novamente
+#cadastrar_produto("iPhone 15", 5, 5000)
+
+# Cadastrar Sem Nome
+#cadastrar_produto("", 5, 6000)
+
+# Cadastrar com Quantidade Menor que Zero
+#cadastrar_produto("Notebook", -1, 5000)
+
+# Cadastrar com Preço Menor que Zero
+#cadastrar_produto("Tablet", 2, -2)
